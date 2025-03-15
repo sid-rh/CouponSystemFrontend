@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { claimCoupon } from '../services/api';
+import { useNavigate } from 'react-router-dom';
 
 function CouponClaim() {
   const [sessionId, setSessionId] = useState('');
   const [coupon, setCoupon] = useState(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Generate or retrieve session ID
@@ -33,6 +35,15 @@ function CouponClaim() {
   };
 
   return (
+<>
+    <div className="fixed top-4 right-4 z-50">
+        <button
+          onClick={() => navigate('/admin/login')}
+          className="py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+        >
+          Admin Login
+        </button>
+      </div>
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow-md">
         <div className="text-center">
@@ -69,11 +80,13 @@ function CouponClaim() {
           </button>
         </div>
 
+
         <div className="mt-4 text-center text-sm text-gray-600">
           <p>Note: You can only claim one coupon every 24 hours</p>
         </div>
       </div>
     </div>
+  </>
   );
 }
 
